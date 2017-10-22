@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "236974465721",
+    "firebase_url": "https://shoutout-77e0e.firebaseio.com",
+    "project_id": "shoutout-77e0e",
+    "storage_bucket": "shoutout-77e0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236974465721:android:665dd1284c343951",
+        "android_client_info": {
+          "package_name": "com.announcement.schol.infoboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236974465721-n76m75g30nhfm0ghs1ilq99l71urfjfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.announcement.schol.infoboard",
+            "certificate_hash": "7c459a08b1abaca944ad265fe7cba80b03505d2c"
+          }
+        },
+        {
+          "client_id": "236974465721-vk26a2v9qbpmlu78r6kthl2dhqeqm44q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtd97MvDDEjUqEv9tiVIDOsSDHqjVohw4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236974465721-vk26a2v9qbpmlu78r6kthl2dhqeqm44q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
