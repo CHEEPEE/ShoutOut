@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/NoActionBar"
     >
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="SubTitle"
                     android:textSize="10dp"
-                    android:id="@+id/post_subtitle"
+                    android:id="@+id/post_author"
                     android:layout_below="@+id/post_title"
                     android:layout_toRightOf="@+id/account_img"
                     android:textColor="@color/secondary_text"
@@ -56,10 +56,10 @@
                 >
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    android:maxHeight="50dp"
                     android:src="@drawable/anon"
+                    android:id="@+id/post_img"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -72,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lorem_ipsum"
                     android:layout_margin="10dp"
+                    android:id="@+id/body_content"
                     />
 
 

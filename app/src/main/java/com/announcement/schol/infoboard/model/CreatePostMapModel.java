@@ -12,8 +12,9 @@ public class CreatePostMapModel {
 
     public String author;
     public String title;
-    public String bodyContent;
-    public String img;
+    public String textBody;
+    public String imgURL;
+    public String postImageUrl;
     public String timestamp;
     public String postType;
 
@@ -24,11 +25,12 @@ public class CreatePostMapModel {
 
     }
 
-    public CreatePostMapModel(String author, String postTitle, String postContentBody, String postImg) {
+    public CreatePostMapModel(String author, String postTitle, String postTextCotent, String postImg,String uri) {
         this.author = author;
         this.title = postTitle;
-        this.bodyContent = postContentBody;
-        this.img = postImg;
+        this.textBody = postTextCotent;
+        this.imgURL = postImg;
+        this.postImageUrl = uri;
     }
     // [START post_to_map]
     @Exclude
@@ -36,8 +38,9 @@ public class CreatePostMapModel {
         HashMap<String, Object> result = new HashMap<>();
         result.put("author",author);
         result.put("title",title);
-        result.put("bodycontent", bodyContent);
-        result.put("imgURL",img);
+        result.put("textBody", textBody);
+        result.put("imgURL", imgURL);
+        result.put("postImageUrl",postImageUrl);
 
 
 
