@@ -175,64 +175,6 @@ public class CreatePostActivity extends AppCompatActivity {
         return result;
     }
 
-    /*public void uploadFileFromInputStream(final Uri uri){
-        InputStream file = null;
-        try {
-            file = getContentResolver().openInputStream(uri);
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-
-        System.out.println(getFileName(uri));
-        final String type;
-        if (getFileName(uri).substring(getFileName(uri).length()-3,getFileName(uri).length()).toLowerCase().equals("jpg") || getFileName(uri).substring(getFileName(uri).length()-3,getFileName(uri).length()).toLowerCase().equals("png")){
-            type = "image";
-        }else {
-            type="file";
-        }
-
-        final String msgTitle;
-
-        if (msgField.getText().toString().trim().equals("") || msgField.getText().toString().equals(null)){
-            msgTitle = getFileName(uri);
-        }else {
-            msgTitle = msgField.getText().toString();
-
-        }
-
-
-        StorageReference riversRef = mStorageRef.child("files/"+ File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri));
-        final String downloadURL = "files/"+File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri);
-        riversRef.putStream(file)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        @SuppressWarnings("VisibleForTests")
-                        String downloadUri = taskSnapshot.getDownloadUrl().toString();
-                    *//*Uri downloadUrl = taskSnapshot.getDownloadUrl();*//*
-
-                        System.out.println("Upload Success");
-                        System.out.println(downloadUri);
-                        String name = mAuth.getCurrentUser().getDisplayName();
-                        String userId = mAuth.getCurrentUser().getUid();
-                        String uEmail = mAuth.getCurrentUser().getEmail();
-                        String msg = msgField.getText().toString();
-                        String timeStamp = Utils.formatTheDate(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
-                        writeNewMsg(uEmail,name,msgTitle.toString(),timeStamp,downloadUri,type);
-                        messageListAdapter.notifyDataSetChanged();
-                        uploadProgress.setVisibility(View.INVISIBLE);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                        System.out.println("Upload Failed");
-                    }
-                });
-    }*/
 
     private void publishPost(final String author,final String title ,final String userImgUrl,final String content,Uri uri){
         if (uri!= null){
@@ -242,7 +184,7 @@ public class CreatePostActivity extends AppCompatActivity {
             }catch (FileNotFoundException e){
                 e.printStackTrace();
             }
-            StorageReference imageRef = mStorageRef.child("files/"+ File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri));
+            StorageReference imageRef = mStorageRef.child("imaget/postAnnouncement"+ File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri));
             imageRef.putStream(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

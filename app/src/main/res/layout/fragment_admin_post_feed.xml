@@ -6,19 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.announcement.schol.infoboard.activities.NewFeed">
-   <!-- <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/post_feed"
         android:scrollbars="vertical"
-        />-->
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:id="@+id/fragement_layout"
-        android:layout_height="match_parent">
-
-
-    </FrameLayout>
+        />
 
 </RelativeLayout>

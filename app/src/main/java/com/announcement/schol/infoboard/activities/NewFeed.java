@@ -1,5 +1,8 @@
 package com.announcement.schol.infoboard.activities;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.adapter.PostFeedRecyclerViewAdapter;
+import com.announcement.schol.infoboard.fragment.AdminPostFragment;
 import com.announcement.schol.infoboard.model.CreatePostMapModel;
 import com.announcement.schol.infoboard.model.PostFeedModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +43,7 @@ public class NewFeed extends AppCompatActivity {
     private ArrayList<PostFeedModel> postFeedModelsArray = new ArrayList<>();
     FirebaseAuth mAuth;
     TextView accountName;
-     TextView accountEmail;
+    TextView accountEmail;
     CircleImageView accountImage;
     private SlidingRootNav slidingRootNav;
 
@@ -59,7 +63,7 @@ public class NewFeed extends AppCompatActivity {
                 .inject();
 
 
-        mPostDatabaseRef = FirebaseDatabase.getInstance().getReference().child("post");
+
         accountImage = (CircleImageView) findViewById(R.id.account_img) ;
         accountName = (TextView) findViewById(R.id.text_acount_name);
         accountEmail= (TextView) findViewById(R.id.text_account_email);
@@ -67,97 +71,7 @@ public class NewFeed extends AppCompatActivity {
         accountEmail.setText(mAuth.getCurrentUser().getEmail().toString());
         Picasso.with(NewFeed.this).load(mAuth.getCurrentUser().getPhotoUrl()).into(accountImage);
 
-        postFeedRecyclerViewAdapter = new PostFeedRecyclerViewAdapter(NewFeed.this,postFeedModelsArray);
-        postFeedRecyclerView = (RecyclerView) findViewById(R.id.post_feed);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        postFeedRecyclerView.setLayoutManager(layoutManager);
-        postFeedRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        postFeedRecyclerView.setAdapter(postFeedRecyclerViewAdapter);
-
-
-        mPostDatabaseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               /* PostFeedModel FeedMdel = new PostFeedModel();
-                CreatePostMapModel createPostMapModel = dataSnapshot.getValue(CreatePostMapModel.class);
-                FeedMdel.setAuthor(createPostMapModel.author);
-                FeedMdel.setContent(createPostMapModel.textBody);
-                FeedMdel.setAuthorImg(createPostMapModel.imgURL);
-                FeedMdel.setTitle(createPostMapModel.title);
-                System.out.println(createPostMapModel.textBody);
-                System.out.println(createPostMapModel.imgURL);
-                postFeedModelsArray.add(FeedMdel);
-                postFeedRecyclerViewAdapter.notifyDataSetChanged();*/
-
-
-
-
-            }
-
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        mPostDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                postFeedModelsArray.clear();
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    PostFeedModel FeedMdel = new PostFeedModel();
-                    CreatePostMapModel createPostMapModel = dataSnapshot1.getValue(CreatePostMapModel.class);
-                    FeedMdel.setAuthor(createPostMapModel.author);
-
-                    FeedMdel.setContent(createPostMapModel.textBody);
-                    FeedMdel.setAuthorImg(createPostMapModel.imgURL);
-                    FeedMdel.setPostImageURL(createPostMapModel.postImageUrl);
-                    FeedMdel.setTitle(createPostMapModel.title);
-                    System.out.println(createPostMapModel.textBody);
-                    System.out.println(createPostMapModel.imgURL);
-                    postFeedModelsArray.add(FeedMdel);
-                    postFeedRecyclerViewAdapter.notifyDataSetChanged();
-                }
-                Collections.reverse(postFeedModelsArray);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mPostDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
-
+        loadFragment(new AdminPostFragment());
 
 
 
@@ -186,5 +100,14 @@ public class NewFeed extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void loadFragment(Fragment fragment) {
+// create a FragmentManager
+        FragmentManager fm = getFragmentManager();
+// create a FragmentTransaction to begin the transaction and replace the Fragment
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+// replace the FrameLayout with new Fragment
+        fragmentTransaction.replace(R.id.fragement_layout,fragment);
+        fragmentTransaction.commit(); // save the changes
     }
 }
