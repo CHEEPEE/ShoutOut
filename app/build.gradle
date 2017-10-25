@@ -41,6 +41,8 @@ dependencies {
     compile 'com.yarolegovich:sliding-root-nav:1.1.0'
     compile 'com.android.support:multidex:1.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.facebook.android:facebook-login:[4,5)'
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
 
 
 }

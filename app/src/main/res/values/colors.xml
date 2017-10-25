@@ -17,4 +17,6 @@
     <color name="hintColor">#d6d6d6</color>
     <color name="blue">#03a9f4</color>
     <color name="darkGrey">#1c2631</color>
+    <color name="gmailColor">#D52D28</color>
+    <color name="facebookColor">#3B5998</color>
 </resources>

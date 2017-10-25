@@ -19,6 +19,7 @@ import com.announcement.schol.infoboard.adapter.PostFeedRecyclerViewAdapter;
 import com.announcement.schol.infoboard.fragment.AdminPostFragment;
 import com.announcement.schol.infoboard.model.CreatePostMapModel;
 import com.announcement.schol.infoboard.model.PostFeedModel;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -93,7 +94,9 @@ public class NewFeed extends AppCompatActivity {
                 break;
 
             case R.id.sign_out_id:
+                LoginManager.getInstance().logOut();
                 mAuth.signOut();
+
                 Intent singOutIntent = new Intent(NewFeed.this,LoginActivity.class);
                 startActivity(singOutIntent);
 
