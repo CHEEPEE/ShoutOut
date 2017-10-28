@@ -70,12 +70,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
-        /*btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn(emailField.getText().toString(),passwordField.getText().toString());
-            }
-        });*/
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -96,20 +90,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // App code
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                loadingLayout.setVisibility(View.VISIBLE);
 
             }
 
             @Override
             public void onCancel() {
-                // App code
+
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+
             }
         });
         faceBookLogin.setOnClickListener(new View.OnClickListener() {
@@ -140,10 +132,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             loadingLayout.setVisibility(View.GONE);
-
                         }
 
-                        // ...
                     }
                 });
     }
@@ -169,52 +159,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-   /* private void signIn(String email, String password) {
-
-        if (validateForm()){
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Intent i = new Intent(LoginActivity.this, NewFeed.class);
-                                startActivity(i);
-                                System.out.println("success");
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                System.out.println("failed");
-                                loadingLayout.setVisibility(View.GONE);
-                                Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-        }
-    }*/
-
-
-   /* private boolean validateForm() {
-        boolean valid = true;
-
-        String emailString = emailField.getText().toString();
-        if (TextUtils.isEmpty(emailString)) {
-            emailField.setError("Required.");
-            valid = false;
-        } else {
-            emailField.setError(null);
-        }
-
-        String passwordString = passwordField.getText().toString();
-        if (TextUtils.isEmpty(passwordString)) {
-            passwordField.setError("Required.");
-            valid = false;
-        } else {
-            passwordField.setError(null);
-        }
-
-        return valid;
-    }*/
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
@@ -249,10 +193,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+                        Intent i = new Intent(LoginActivity.this,NewFeed.class);
+                        startActivity(i);
+                        finish();
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",

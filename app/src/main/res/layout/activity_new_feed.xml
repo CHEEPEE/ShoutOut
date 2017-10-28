@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/lightGrey"
+    android:theme="@style/NoActionBar"
     tools:context="com.announcement.schol.infoboard.activities.NewFeed">
    <!-- <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -12,8 +13,28 @@
         android:id="@+id/post_feed"
         android:scrollbars="vertical"
         />-->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="60dp"
+        android:id="@+id/appbar_layout"
+        app:elevation="0dp"
+        >
+        <android.support.v7.widget.Toolbar
+            android:title="@string/app_name"
+            android:titleTextColor="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:id="@+id/toobar"
+            android:layout_height="match_parent">
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
+        android:background="@color/lightGrey"
+        android:layout_below="@id/appbar_layout"
         android:layout_width="match_parent"
         android:id="@+id/fragement_layout"
         android:layout_height="match_parent">

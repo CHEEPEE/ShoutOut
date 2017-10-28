@@ -5,9 +5,9 @@
     android:layout_width="250dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="30dp"
+    android:paddingTop="60dp"
     android:layout_height="match_parent"
-    android:background="@color/darkGrey">
+    android:background="@color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/account_details"
@@ -38,15 +38,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_account_email"
             android:text="devkennethjiepadasas@gmail.com"
-            android:textColor="@color/white"
+            android:textColor="@color/darkGrey"
             android:layout_toRightOf="@id/account_img"
             android:layout_below="@+id/text_acount_name"
             />
     </RelativeLayout>
+    <View android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/account_details"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/divider"
+        android:background="@color/colorGrey" />
     <RelativeLayout
         android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:layout_below="@id/account_details"
+        android:layout_below="@id/divider"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,18 +65,64 @@
             android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/admin_post"
-            android:text="Admin"
+            android:id="@+id/announcement"
+            android:text="Announcement"
             android:textColor="@color/colorAccent"/>
             <TextView
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/student_republic"
-                android:text="Sac SR"
-                android:textColor="@color/white"
-
+                android:id="@+id/freedom_wall"
+                android:text="Freedom Wall"
+                android:textColor="@color/darkGrey"
             />
+        </LinearLayout>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/account_settings"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/divider_account_settings"
+        android:background="@color/colorGrey" />
+
+    <RelativeLayout
+        android:layout_margin="20dp"
+        android:id="@+id/account_settings"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <Button
+                android:text="Account Settings"
+                android:id="@+id/btn_account_settings"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="35dp"
+                android:drawableStart="@drawable/action_settings"
+                android:textColor="@color/darkGrey"
+                android:backgroundTint="@color/darkGrey"
+                android:drawableTint="@color/darkGrey"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:text="Sign Out Account"
+                android:id="@+id/btn_logout"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="35dp"
+                android:drawableStart="@drawable/action_logout"
+                android:textColor="@color/darkGrey"
+                android:backgroundTint="@color/darkGrey"
+                android:drawableTint="@color/darkGrey"
+                android:background="@android:color/transparent"
+                />
         </LinearLayout>
     </RelativeLayout>
     

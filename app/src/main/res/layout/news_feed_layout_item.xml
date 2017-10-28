@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/NoActionBar"
+    android:background="@color/lightGrey"
     >
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content">
+
         <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -58,7 +58,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/anon"
                     android:id="@+id/post_img"
                     />
             </RelativeLayout>
@@ -86,32 +85,48 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/layout_text_content"
                 >
-                <ImageView
+                <Button
+                    android:text="Like"
+                    android:id="@+id/btn_like"
+                    android:textAllCaps="false"
                     android:layout_marginLeft="20dp"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_action_hearth"
+                    android:drawableStart="@drawable/action_like"
 
+                    android:textColor="#979797"
+                    android:background="@android:color/transparent"
                     />
-                <ImageView
-                    android:layout_width="50dp"
+                <Button
+                    android:id="@+id/btn_comment"
+                    android:layout_width="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_icons8_comments"
+                    android:drawableStart="@drawable/action_comment"
+                    android:text="Comment"
+                    android:textAllCaps="false"
+
+                    android:background="@android:color/transparent"
+                    android:textColor="#979797"
 
                     />
-                <ImageView
+                <Button
+                    android:id="@+id/btn_share"
                     android:layout_marginRight="20dp"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_share_black_24dp"
+                    android:text="Share"
+                    android:textColor="#979797"
+                    android:textAllCaps="false"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/action_share_max"
 
                     />
 
@@ -120,7 +135,7 @@
         </RelativeLayout>
 
 
-    </android.support.v7.widget.CardView>
+
 
 
 </LinearLayout>

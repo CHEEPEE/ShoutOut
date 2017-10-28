@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('blur-behind-1.1.aar'))
