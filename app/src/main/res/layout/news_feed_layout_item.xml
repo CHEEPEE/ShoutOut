@@ -90,27 +90,16 @@
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/layout_text_content"
                 >
-                <Button
-                    android:text="Like"
-                    android:id="@+id/btn_like"
-                    android:textAllCaps="false"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_height="50dp"
-                    android:drawableStart="@drawable/action_like"
 
-                    android:textColor="#979797"
-                    android:background="@android:color/transparent"
-                    />
-                <Button
+                <!--<Button
                     android:id="@+id/btn_comment"
                     android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_height="50dp"
                     android:drawableStart="@drawable/action_comment"
                     android:text="Comment"
                     android:textAllCaps="false"
+                    android:layout_marginLeft="40dp"
 
                     android:background="@android:color/transparent"
                     android:textColor="#979797"
@@ -118,7 +107,7 @@
                     />
                 <Button
                     android:id="@+id/btn_share"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="40dp"
                     android:layout_width="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_height="50dp"
@@ -128,7 +117,8 @@
                     android:background="@android:color/transparent"
                     android:drawableStart="@drawable/action_share_max"
 
-                    />
+                    />-->
+                <include layout="@layout/social_buttons_section"/>
 
             </RelativeLayout>
 

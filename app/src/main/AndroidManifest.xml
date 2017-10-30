@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".loginmodule.activities.LoginActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,11 +43,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NewFeed"
+            android:name=".postmodule.activities.NewFeed"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".activities.CreatePostActivity" />
-        <activity android:name=".activities.PostImageActivity"
-            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".postmodule.activities.CreatePostActivity" />
+        <activity
+            android:name=".postmodule.activities.PostImageActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".postmodule.activities.CommentsActivity"></activity>
     </application>
 
 </manifest>

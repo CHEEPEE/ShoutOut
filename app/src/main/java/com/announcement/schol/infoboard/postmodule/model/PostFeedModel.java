@@ -1,4 +1,4 @@
-package com.announcement.schol.infoboard.model;
+package com.announcement.schol.infoboard.postmodule.model;
 
 /**
  * Created by Keji's Lab on 23/10/2017.
@@ -6,8 +6,10 @@ package com.announcement.schol.infoboard.model;
 
 public class PostFeedModel {
 
-private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl;
-
+private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl,mPostKey;
+    public String getKey(){
+        return mPostKey;
+    }
     public String getAuthor(){
         return mAuthor;
     }
@@ -32,7 +34,9 @@ private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl;
     public void setContent(String content){
         this.mcontent = content;
     }
-
+    public void setPostKey(String key){
+        this.mPostKey = key;
+    }
     public void setAuthorImg(String authorImg){
         this.mAuthorImg = authorImg;
     }

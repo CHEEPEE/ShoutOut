@@ -6,6 +6,4 @@
         android:icon="@drawable/ic_note_add_black_24dp"
         app:showAsAction="ifRoom"
         />
-    <item android:title="Sign Out"
-        android:id="@+id/sign_out_id" />
 </menu>

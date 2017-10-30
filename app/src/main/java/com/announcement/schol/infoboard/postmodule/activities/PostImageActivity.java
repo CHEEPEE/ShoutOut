@@ -1,4 +1,4 @@
-package com.announcement.schol.infoboard.activities;
+package com.announcement.schol.infoboard.postmodule.activities;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +20,8 @@ public class PostImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_image);
         postImage = (PhotoView) findViewById(R.id.postImage);
         BlurBehind.getInstance()
-                .withAlpha(40)
-                .withFilterColor(Color.parseColor("#000000"))
+                .withAlpha(90)
+                .withFilterColor(Color.parseColor("#009688"))
                 .setBackground(this);
         Bundle bundle = getIntent().getExtras();
         String imgUrl = bundle.getString("imgUrl");

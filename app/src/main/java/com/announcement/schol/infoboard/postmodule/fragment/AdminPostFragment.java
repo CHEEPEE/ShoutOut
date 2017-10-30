@@ -1,4 +1,4 @@
-package com.announcement.schol.infoboard.fragment;
+package com.announcement.schol.infoboard.postmodule.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,27 +11,20 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.announcement.schol.infoboard.R;
-import com.announcement.schol.infoboard.activities.NewFeed;
-import com.announcement.schol.infoboard.adapter.PostFeedRecyclerViewAdapter;
-import com.announcement.schol.infoboard.model.CreatePostMapModel;
-import com.announcement.schol.infoboard.model.PostFeedModel;
+import com.announcement.schol.infoboard.postmodule.adapter.PostFeedRecyclerViewAdapter;
+import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
+import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Keji's Lab on 24/10/2017.
@@ -71,10 +64,10 @@ public class AdminPostFragment extends Fragment {
                     FeedMdel.setAuthorImg(createPostMapModel.imgURL);
                     FeedMdel.setPostImageURL(createPostMapModel.postImageUrl);
                     FeedMdel.setTitle(createPostMapModel.title);
-                    System.out.println(createPostMapModel.textBody);
-                    System.out.println(createPostMapModel.imgURL);
+                    FeedMdel.setPostKey(createPostMapModel.postKey);
                     postFeedModelsArray.add(FeedMdel);
                     postFeedRecyclerViewAdapter.notifyDataSetChanged();
+                    System.out.println(createPostMapModel.postKey);
                 }
                 Collections.reverse(postFeedModelsArray);
             }

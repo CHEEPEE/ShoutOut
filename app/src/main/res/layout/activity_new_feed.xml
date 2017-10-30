@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/lightGrey"
     android:theme="@style/NoActionBar"
-    tools:context="com.announcement.schol.infoboard.activities.NewFeed">
+    tools:context="com.announcement.schol.infoboard.postmodule.activities.NewFeed">
    <!-- <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

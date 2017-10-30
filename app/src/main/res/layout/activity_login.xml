@@ -7,7 +7,7 @@
     android:background="@color/white"
 
     android:theme="@style/NoActionBar"
-    tools:context="com.announcement.schol.infoboard.activities.LoginActivity">
+    tools:context="com.announcement.schol.infoboard.loginmodule.activities.LoginActivity">
 
     <Button
 

@@ -11,14 +11,6 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
 
 
 android {
-    /* signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }*/
 
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -36,11 +28,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            /*storeFile file("release.keystore")
-            storePassword "password"
-            keyAlias "shoutOut"
-            keyPassword "password"*/
-
         }
     }
 }
@@ -68,9 +55,9 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.facebook.android:facebook-login:[4,5)'
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 }
 
 

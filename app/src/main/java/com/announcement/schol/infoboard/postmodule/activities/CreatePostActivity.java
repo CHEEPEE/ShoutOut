@@ -1,15 +1,9 @@
-package com.announcement.schol.infoboard.activities;
+package com.announcement.schol.infoboard.postmodule.activities;
 
 import android.app.Activity;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.announcement.schol.infoboard.R;
-import com.announcement.schol.infoboard.model.CreatePostMapModel;
+import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,8 +31,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -191,7 +182,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     String imageUrl = taskSnapshot.getDownloadUrl().toString();
                     String key = mDatabase.push().getKey();
-                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl);
+                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key);
                     Map<String,Object> postValue = createPostMapModel.toMap();
                     Map<String,Object> childUpdates = new HashMap<>();
                     childUpdates.put(key,postValue);
@@ -213,7 +204,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         }else {
             String key = mDatabase.push().getKey();
-            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null");
+            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key);
             Map<String,Object> postValue = createPostMapModel.toMap();
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put(key,postValue);

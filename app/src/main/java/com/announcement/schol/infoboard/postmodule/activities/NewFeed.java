@@ -1,4 +1,4 @@
-package com.announcement.schol.infoboard.activities;
+package com.announcement.schol.infoboard.postmodule.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,9 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.announcement.schol.infoboard.R;
-import com.announcement.schol.infoboard.adapter.PostFeedRecyclerViewAdapter;
-import com.announcement.schol.infoboard.fragment.AdminPostFragment;
-import com.announcement.schol.infoboard.model.PostFeedModel;
+import com.announcement.schol.infoboard.loginmodule.activities.LoginActivity;
+import com.announcement.schol.infoboard.postmodule.adapter.PostFeedRecyclerViewAdapter;
+import com.announcement.schol.infoboard.postmodule.fragment.AdminPostFragment;
+import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +33,6 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -107,8 +107,6 @@ public class NewFeed extends AppCompatActivity {
                 System.out.println("User type: "+getUserType);
                 if (getUserType.equals("admin")){
                     getMenuInflater().inflate(R.menu.admin_menu_newsfeed,menu);
-                }else {
-                    getMenuInflater().inflate(R.menu.user_menu_newsfeed,menu);
                 }
             }
 
