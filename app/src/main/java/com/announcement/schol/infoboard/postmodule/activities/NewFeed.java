@@ -33,6 +33,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,8 +44,8 @@ public class NewFeed extends AppCompatActivity {
     private PostFeedRecyclerViewAdapter postFeedRecyclerViewAdapter;
     private ArrayList<PostFeedModel> postFeedModelsArray = new ArrayList<>();
     FirebaseAuth mAuth,mAuthUser;
-    TextView accountName;
-    TextView accountEmail;
+    TextView accountName,accountEmail;
+    TextView announcement;
 
     CircleImageView accountImage;
     Button btnSignOut;
@@ -77,6 +78,15 @@ public class NewFeed extends AppCompatActivity {
                 .withToolbarMenuToggle(toolbar)
                 .withContentClickableWhenMenuOpened(true)
                 .inject();
+
+        announcement = (TextView) findViewById(R.id.announcement);
+        announcement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingRootNav.closeMenu(true);
+            }
+        });
+
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         accountName = (TextView) findViewById(R.id.text_acount_name);
         accountEmail= (TextView) findViewById(R.id.text_account_email);

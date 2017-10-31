@@ -26,6 +26,6 @@ public class PostImageActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String imgUrl = bundle.getString("imgUrl");
         System.out.println(imgUrl);
-        Picasso.with(this).load(imgUrl).into(postImage);
+        Picasso.with(this).load(imgUrl).resize(1000,0).into(postImage);
     }
 }

@@ -60,10 +60,10 @@ public class CommentsActivity extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("postComment").child(postcommentKey);
         Uri accountImageUrl = firebaseAuth.getCurrentUser().getPhotoUrl();
         Picasso.with(this).load(accountImageUrl).resize(100,100).into(accountImage);
-        BlurBehind.getInstance()
+        /*BlurBehind.getInstance()
                 .withAlpha(30)
                 .withFilterColor(Color.parseColor("#009688"))
-                .setBackground(this);
+                .setBackground(this);*/
         System.out.println(postcommentKey);
 
         //Send Comment
