@@ -45,6 +45,7 @@ public class CommentsActivity extends AppCompatActivity {
     CommentRecyclerViewAdapter commentRecyclerViewAdapter;
     ArrayList<CommentModel> commentModelsArray = new ArrayList<>();
     Context context;
+    public int commentNumber = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class CommentsActivity extends AppCompatActivity {
         Uri accountImageUrl = firebaseAuth.getCurrentUser().getPhotoUrl();
         Picasso.with(this).load(accountImageUrl).resize(100,100).into(accountImage);
         BlurBehind.getInstance()
-                .withAlpha(90)
+                .withAlpha(30)
                 .withFilterColor(Color.parseColor("#009688"))
                 .setBackground(this);
         System.out.println(postcommentKey);
@@ -97,6 +98,7 @@ public class CommentsActivity extends AppCompatActivity {
         commentsRecyclerView.setLayoutManager(layoutManager);
         commentsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         commentsRecyclerView.setAdapter(commentRecyclerViewAdapter);
+
         mDatabaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -109,6 +111,8 @@ public class CommentsActivity extends AppCompatActivity {
                 commentRecyclerViewAdapter.notifyDataSetChanged();
                 System.out.println(postCommentModel.userAccountImageUrl);
                 System.out.println(postCommentModel.message);
+                commentNumber++;
+                commentsRecyclerView.smoothScrollToPosition(commentNumber);
             }
 
             @Override

@@ -37,6 +37,4 @@ public class PostCommentModel {
 
         return result;
     }
-    // [END post_to_map]
-
 }

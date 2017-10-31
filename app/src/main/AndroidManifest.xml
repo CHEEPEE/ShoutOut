@@ -49,7 +49,8 @@
         <activity
             android:name=".postmodule.activities.PostImageActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".postmodule.activities.CommentsActivity"></activity>
+        <activity android:name=".postmodule.activities.CommentsActivity"
+            android:theme="@style/NoActionBar"></activity>
     </application>
 
 </manifest>
