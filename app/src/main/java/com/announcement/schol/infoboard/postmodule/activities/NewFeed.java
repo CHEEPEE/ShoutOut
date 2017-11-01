@@ -48,12 +48,13 @@ public class NewFeed extends AppCompatActivity {
     TextView accountName,accountEmail;
     TextView announcement;
     TextView freedomwall;
-
+    static boolean calledAlready = false;
     CircleImageView accountImage;
     Button btnSignOut;
 
     private SlidingRootNav slidingRootNav;
     private DatabaseReference databaseRefUsers;
+    private FirebaseDatabase mFirebaseDatabase;
     Toolbar toolbar;
     private String getCurrentUserId;
     @Override
@@ -62,15 +63,31 @@ public class NewFeed extends AppCompatActivity {
         setContentView(R.layout.activity_new_feed);
         toolbar = (Toolbar) findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
+
+       //firebase for OfflineMode Get instance
+        if (!calledAlready)
+        {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            calledAlready = true;
+        }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        //toolBar Initialize
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             toolbar.setElevation(0);
         }
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
         mAuth = FirebaseAuth.getInstance();
+
         getCurrentUserId = mAuth.getCurrentUser().getUid();
+
         databaseRefUsers = FirebaseDatabase.getInstance().getReference();
         databaseRefUsers.keepSynced(true);
+
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
@@ -81,7 +98,16 @@ public class NewFeed extends AppCompatActivity {
                 .withToolbarMenuToggle(toolbar)
                 .withContentClickableWhenMenuOpened(true)
                 .inject();
+
         freedomwall = (TextView) findViewById(R.id.freedom_wall);
+        freedomwall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new FreedomWallFragement());
+                slidingRootNav.closeMenu(true);
+            }
+        });
+
         announcement = (TextView) findViewById(R.id.announcement);
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,23 +117,15 @@ public class NewFeed extends AppCompatActivity {
 
             }
         });
-        freedomwall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new FreedomWallFragement());
-                slidingRootNav.closeMenu(true);
-            }
-        });
-
 
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         accountName = (TextView) findViewById(R.id.text_acount_name);
         accountEmail= (TextView) findViewById(R.id.text_account_email);
         accountName.setText(mAuth.getCurrentUser().getDisplayName().toString());
         accountEmail.setText(mAuth.getCurrentUser().getEmail().toString());
+
         Picasso.with(NewFeed.this).load(mAuth.getCurrentUser().getPhotoUrl()).into(accountImage);
         loadFragment(new AdminPostFragment());
-
 
         //drawer Item Menus
         btnSignOut = (Button) findViewById(R.id.btn_logout);
@@ -117,10 +135,6 @@ public class NewFeed extends AppCompatActivity {
                 signOut();
             }
         });
-
-
-
-
 
     }
     @Override

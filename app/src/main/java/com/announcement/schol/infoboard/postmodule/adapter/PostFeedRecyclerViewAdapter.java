@@ -79,6 +79,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
         final PostFeedModel postFeedModel = postFeedModels.get(position);
 
 
+
         //FirebaseDatabase mstorageRef = postFeedModel.getPostImageUrl();
        // Picasso.with(context).load(postFeedModel.getPostImageUrl()).centerInside().resize(900,900).into(holder.postImage);
         if (postFeedModel.getPostImageUrl().equals(null) || postFeedModel.getPostImageUrl().equals("null")){
@@ -86,8 +87,8 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             holder.postImage.getLayoutParams().height=0;
         }else {
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModel.getPostImageUrl());
-            Glide.with(context).using(new FirebaseImageLoader()).load(firebaseStorage).into(holder.postImage);
-            holder.postImage.getLayoutParams().height=400;
+            Glide.with(context).using(new FirebaseImageLoader()).load(firebaseStorage).override(600,600).into(holder.postImage);
+            holder.postImage.getLayoutParams().height=600;
         }
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
