@@ -51,6 +51,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
         context = CommentsActivity.this;
+
         final String postcommentKey = getIntent().getExtras().getString("postcommentKey");
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         firebaseAuth = FirebaseAuth.getInstance();

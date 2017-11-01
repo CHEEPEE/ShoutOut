@@ -19,6 +19,7 @@ import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.loginmodule.activities.LoginActivity;
 import com.announcement.schol.infoboard.postmodule.adapter.PostFeedRecyclerViewAdapter;
 import com.announcement.schol.infoboard.postmodule.fragment.AdminPostFragment;
+import com.announcement.schol.infoboard.postmodule.fragment.FreedomWallFragement;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +47,7 @@ public class NewFeed extends AppCompatActivity {
     FirebaseAuth mAuth,mAuthUser;
     TextView accountName,accountEmail;
     TextView announcement;
+    TextView freedomwall;
 
     CircleImageView accountImage;
     Button btnSignOut;
@@ -64,10 +66,11 @@ public class NewFeed extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             toolbar.setElevation(0);
         }
-        ButterKnife.bind(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         getCurrentUserId = mAuth.getCurrentUser().getUid();
         databaseRefUsers = FirebaseDatabase.getInstance().getReference();
+        databaseRefUsers.keepSynced(true);
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
@@ -78,14 +81,24 @@ public class NewFeed extends AppCompatActivity {
                 .withToolbarMenuToggle(toolbar)
                 .withContentClickableWhenMenuOpened(true)
                 .inject();
-
+        freedomwall = (TextView) findViewById(R.id.freedom_wall);
         announcement = (TextView) findViewById(R.id.announcement);
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadFragment(new AdminPostFragment());
+                slidingRootNav.closeMenu(true);
+
+            }
+        });
+        freedomwall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new FreedomWallFragement());
                 slidingRootNav.closeMenu(true);
             }
         });
+
 
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         accountName = (TextView) findViewById(R.id.text_acount_name);
@@ -104,6 +117,8 @@ public class NewFeed extends AppCompatActivity {
                 signOut();
             }
         });
+
+
 
 
 

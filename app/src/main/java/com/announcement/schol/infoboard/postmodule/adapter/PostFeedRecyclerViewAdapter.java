@@ -17,6 +17,13 @@ import com.announcement.schol.infoboard.postmodule.activities.PostImageActivity;
 import com.announcement.schol.infoboard.blurbehind.BlurBehind;
 import com.announcement.schol.infoboard.blurbehind.OnBlurCompleteListener;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,11 +38,13 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
 
     private ArrayList<PostFeedModel> postFeedModels;
     private Context context;
+    private ArrayList<Boolean> getNull;
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title,author,bodyContent;
         public CircleImageView accountImage;
         public ImageView postImage;
         public Button btnComment,btnShare;
+
         public MyViewHolder(View view){
             super(view);
             postImage = (ImageView)view.findViewById(R.id.post_img);
@@ -59,6 +68,8 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_feed_layout_item,parent,false);
+
+
         return new MyViewHolder(itemView);
     }
 
@@ -66,7 +77,18 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     public void onBindViewHolder(PostFeedRecyclerViewAdapter.MyViewHolder holder, final int position) {
 
         final PostFeedModel postFeedModel = postFeedModels.get(position);
-        Picasso.with(context).load(postFeedModel.getPostImageUrl()).centerInside().resize(700,900).into(holder.postImage);
+
+
+        //FirebaseDatabase mstorageRef = postFeedModel.getPostImageUrl();
+       // Picasso.with(context).load(postFeedModel.getPostImageUrl()).centerInside().resize(900,900).into(holder.postImage);
+        if (postFeedModel.getPostImageUrl().equals(null) || postFeedModel.getPostImageUrl().equals("null")){
+            Glide.clear(holder.postImage);
+            holder.postImage.getLayoutParams().height=0;
+        }else {
+            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModel.getPostImageUrl());
+            Glide.with(context).using(new FirebaseImageLoader()).load(firebaseStorage).into(holder.postImage);
+            holder.postImage.getLayoutParams().height=400;
+        }
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
         holder.bodyContent.setText(postFeedModel.getContent());
@@ -86,7 +108,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                         context.startActivity(intent);
                     }
                 });
-
             }
         });
 
@@ -114,4 +135,5 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     public int getItemCount() {
         return postFeedModels.size();
     }
+
 }
