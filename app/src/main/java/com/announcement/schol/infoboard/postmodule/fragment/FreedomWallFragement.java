@@ -74,6 +74,7 @@ public class FreedomWallFragement extends Fragment {
                     FeedMdel.setPostImageURL(createPostMapModel.postImageUrl);
                     FeedMdel.setTitle(createPostMapModel.title);
                     FeedMdel.setPostKey(createPostMapModel.postKey);
+                    FeedMdel.setAuthorID(createPostMapModel.authorID);
                     postFeedModelsArray.add(FeedMdel);
                     shoutOutFeedRecyclerViewAdapter.notifyDataSetChanged();
                     System.out.println(createPostMapModel.postKey);

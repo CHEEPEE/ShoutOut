@@ -6,11 +6,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
+    private String authorrID;
     FirebaseAuth mAuth;
     FirebaseUser mUsers;
     @BindView(R.id.image_upload)
@@ -58,6 +61,7 @@ public class CreatePostActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("post");
         getSupportActionBar().setTitle("What's in your mind?");
         mAuth = FirebaseAuth.getInstance();
+        authorrID = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
@@ -78,9 +82,14 @@ public class CreatePostActivity extends AppCompatActivity {
                 performFileSearch();
                 break;
             case R.id.menu_publish_post:
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 Toast.makeText(CreatePostActivity.this,mAuth.getCurrentUser().getPhotoUrl().toString(),Toast.LENGTH_SHORT).show();
                 System.out.println(mAuth.getCurrentUser().getPhotoUrl().toString());
                 publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
+                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.relativeLayout),
+                        "Posting . . .", Snackbar.LENGTH_SHORT);
+                mySnackbar.show();
 
         }
 
@@ -165,8 +174,6 @@ public class CreatePostActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
     private void publishPost(final String author,final String title ,final String userImgUrl,final String content,Uri uri){
         if (uri!= null){
             InputStream file = null;
@@ -182,7 +189,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     String imageUrl = taskSnapshot.getDownloadUrl().toString();
                     String key = mDatabase.push().getKey();
-                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key);
+                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key, authorrID);
                     Map<String,Object> postValue = createPostMapModel.toMap();
                     Map<String,Object> childUpdates = new HashMap<>();
                     childUpdates.put(key,postValue);
@@ -204,7 +211,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         }else {
             String key = mDatabase.push().getKey();
-            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key);
+            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key, authorrID);
             Map<String,Object> postValue = createPostMapModel.toMap();
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put(key,postValue);

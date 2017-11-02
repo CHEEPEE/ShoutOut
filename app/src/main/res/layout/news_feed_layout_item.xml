@@ -17,7 +17,16 @@
                 android:id="@+id/layout_title"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
+
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_margin="10dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/post_option"
+                    android:visibility="invisible"
+                    android:src="@drawable/actiondropdown"/>
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
                     app:civ_border_overlay="false"
@@ -90,34 +99,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/layout_text_content"
                 >
-
-                <!--<Button
-                    android:id="@+id/btn_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_height="50dp"
-                    android:drawableStart="@drawable/action_comment"
-                    android:text="Comment"
-                    android:textAllCaps="false"
-                    android:layout_marginLeft="40dp"
-
-                    android:background="@android:color/transparent"
-                    android:textColor="#979797"
-
-                    />
-                <Button
-                    android:id="@+id/btn_share"
-                    android:layout_marginRight="40dp"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="50dp"
-                    android:text="Share"
-                    android:textColor="#979797"
-                    android:textAllCaps="false"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/action_share_max"
-
-                    />-->
                 <include layout="@layout/social_buttons_section"/>
 
             </RelativeLayout>

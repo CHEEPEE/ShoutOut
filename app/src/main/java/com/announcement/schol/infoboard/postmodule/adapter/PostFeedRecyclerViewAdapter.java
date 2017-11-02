@@ -1,16 +1,22 @@
 package com.announcement.schol.infoboard.postmodule.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.activities.CommentsActivity;
 import com.announcement.schol.infoboard.postmodule.activities.PostImageActivity;
@@ -20,6 +26,7 @@ import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -42,7 +49,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title,author,bodyContent;
         public CircleImageView accountImage;
-        public ImageView postImage;
+        public ImageView postImage,postOption;
         public Button btnComment,btnShare;
 
         public MyViewHolder(View view){
@@ -56,6 +63,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             bodyContent = (TextView) view.findViewById(R.id.body_content);
             accountImage = (CircleImageView) view.findViewById(R.id.account_img);
             btnComment = (Button) view.findViewById(R.id.btn_comment);
+            postOption = (ImageView) view.findViewById(R.id.post_option);
 
         }
     }
@@ -90,6 +98,16 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             Glide.with(context).using(new FirebaseImageLoader()).load(firebaseStorage).override(600,600).into(holder.postImage);
             holder.postImage.getLayoutParams().height=600;
         }
+        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(postFeedModel.getmAuthorID())){
+            holder.postOption.setVisibility(View.VISIBLE);
+            holder.postOption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    postOptionMenu(position);
+                }
+            });
+        }
+
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
         holder.bodyContent.setText(postFeedModel.getContent());
@@ -111,7 +129,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                 });
             }
         });
-
         //soocial Section
         holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +152,41 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     @Override
     public int getItemCount() {
         return postFeedModels.size();
+    }
+
+    private void postOptionMenu(final int position){
+        final String[] options = {"Edit","Delete"};
+        new MaterialDialog.Builder(context)
+                .items(options)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        switch (text.toString()){
+                            case "Edit":
+
+                                break;
+                            case "Delete":
+                                new MaterialDialog.Builder(context)
+                                        .title("Detele")
+                                        .content("Are You Sure to Delete this Post. You can't see this post in the future")
+                                        .positiveText("Procced")
+                                        .negativeText("Cancel").onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        FirebaseDatabase.getInstance().getReference().child("post").child(postFeedModels.get(position).getKey()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference().child("postComment").child(postFeedModels.get(position).getKey()).removeValue();
+                                    }
+                                })
+                                        .show();
+
+                                break;
+
+
+
+                        }
+                    }
+                })
+                .show();
     }
 
 }

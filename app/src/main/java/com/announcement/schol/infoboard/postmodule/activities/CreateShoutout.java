@@ -54,6 +54,7 @@ public class CreateShoutout extends AppCompatActivity {
     Uri imageToUploadUri;
     Toolbar toolbar;
     AppBarLayout appbarLayout;
+    private String getAuthorID;
 
 
     @Override
@@ -69,6 +70,7 @@ public class CreateShoutout extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
 
         mAuth = FirebaseAuth.getInstance();
+        getAuthorID = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
@@ -188,7 +190,7 @@ public class CreateShoutout extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     String imageUrl = taskSnapshot.getDownloadUrl().toString();
                     String key = mDatabase.push().getKey();
-                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key);
+                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key,getAuthorID);
                     Map<String,Object> postValue = createPostMapModel.toMap();
                     Map<String,Object> childUpdates = new HashMap<>();
                     childUpdates.put(key,postValue);
@@ -206,11 +208,9 @@ public class CreateShoutout extends AppCompatActivity {
 
                 }
             });
-
-
         }else {
             String key = mDatabase.push().getKey();
-            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key);
+            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key,getAuthorID);
             Map<String,Object> postValue = createPostMapModel.toMap();
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put(key,postValue);

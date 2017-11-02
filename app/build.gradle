@@ -62,6 +62,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.5.0'
+
 
 
 }
