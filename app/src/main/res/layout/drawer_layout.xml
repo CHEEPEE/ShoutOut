@@ -99,6 +99,19 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <Button
+                android:text="Account Settings"
+                android:id="@+id/btn_account_settings"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="35dp"
+                android:drawableStart="@drawable/action_settings"
+                android:textColor="@color/darkGrey"
+                android:backgroundTint="@color/darkGrey"
+                android:drawableTint="@color/darkGrey"
+                android:background="@android:color/transparent"
+                />
+            <Button
                 android:text="Sign Out Account"
                 android:id="@+id/btn_logout"
                 android:textAllCaps="false"
