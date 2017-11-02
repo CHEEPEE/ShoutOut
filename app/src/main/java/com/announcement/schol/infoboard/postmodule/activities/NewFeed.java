@@ -34,23 +34,23 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewFeed extends AppCompatActivity {
     private DatabaseReference mPostDatabaseRef;
     private String getUserType="";
     private RecyclerView postFeedRecyclerView;
+    String[] menuItems = {"announcement","textItems"};
     private PostFeedRecyclerViewAdapter postFeedRecyclerViewAdapter;
     private ArrayList<PostFeedModel> postFeedModelsArray = new ArrayList<>();
     FirebaseAuth mAuth,mAuthUser;
     TextView accountName,accountEmail;
     TextView announcement;
-    TextView freedomwall;
+    TextView[] textItems = new TextView[menuItems.length];
     static boolean calledAlready = false;
     CircleImageView accountImage;
     Button btnSignOut;
+
 
     private SlidingRootNav slidingRootNav;
     private DatabaseReference databaseRefUsers;
@@ -98,25 +98,27 @@ public class NewFeed extends AppCompatActivity {
                 .withToolbarMenuToggle(toolbar)
                 .withContentClickableWhenMenuOpened(true)
                 .inject();
-
-        freedomwall = (TextView) findViewById(R.id.freedom_wall);
-        freedomwall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new FreedomWallFragement());
-                slidingRootNav.closeMenu(true);
-            }
-        });
-
-        announcement = (TextView) findViewById(R.id.announcement);
-        announcement.setOnClickListener(new View.OnClickListener() {
+        textItems[0] = (TextView) findViewById(R.id.announcement);
+        textItems[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new AdminPostFragment());
                 slidingRootNav.closeMenu(true);
+                itemSeletct(menuItems[0]);
 
             }
         });
+        textItems[1] = (TextView) findViewById(R.id.freedom_wall);
+        textItems[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new FreedomWallFragement());
+                slidingRootNav.closeMenu(true);
+                itemSeletct(menuItems[1]);
+            }
+        });
+
+
 
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         accountName = (TextView) findViewById(R.id.text_acount_name);
@@ -189,5 +191,15 @@ public class NewFeed extends AppCompatActivity {
         mAuth.signOut();
         Intent singOutIntent = new Intent(NewFeed.this,LoginActivity.class);
         startActivity(singOutIntent);
+    }
+
+    private void itemSeletct(String item) {
+        for (int i = 0; i < menuItems.length; i++) {
+            if(item.equals(menuItems[i])){
+                textItems[i].setTextColor(getResources().getColor(R.color.colorAccent));
+            }else {
+                textItems[i].setTextColor(getResources().getColor(R.color.darkGrey));
+            }
+        }
     }
 }

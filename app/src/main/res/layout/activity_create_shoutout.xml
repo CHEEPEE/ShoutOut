@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.announcement.schol.infoboard.postmodule.activities.CreatePostActivity">
+
+   <android.support.design.widget.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:id="@+id/appbar_layout"
+       >
+       <android.support.v7.widget.Toolbar
+           android:layout_width="match_parent"
+           android:id="@+id/toobar"
+           android:titleTextColor="@color/colorAccent"
+           android:layout_height="match_parent">
+
+       </android.support.v7.widget.Toolbar>
+
+   </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/input_title"
+        android:padding="20dp"
+        android:layout_below="@+id/appbar_layout"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <EditText
+            android:hint="Title"
+            android:id="@+id/field_title"
+            android:inputType="textCapSentences"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/input_title"
+        android:scrollbars="none"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/image_upload"
+            android:scaleType="centerCrop"
+
+            android:maxHeight="500dp"
+            android:layout_height="wrap_content"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/image_upload"
+        android:padding="20dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+
+       <EditText
+           android:id="@+id/field_content"
+           android:paddingTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:inputType="textMultiLine"
+           android:hint="Content"
+           android:background="@android:color/transparent"
+           />
+    </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

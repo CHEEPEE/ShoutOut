@@ -9,11 +9,13 @@
     </style>
 
     <!-- no action Bar -->
-    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" xmlns:tools="http://schemas.android.com/tools">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:titleTextColor"  tools:targetApi="23">@color/colorAccent</item>
     </style>
     <style name="FacebookLoginButton" parent="Base.TextAppearance.AppCompat.Button">
         <item name="android:textSize">15sp</item>

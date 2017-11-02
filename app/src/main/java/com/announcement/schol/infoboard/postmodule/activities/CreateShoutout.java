@@ -7,7 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,14 +52,22 @@ public class CreateShoutout extends AppCompatActivity {
     EditText title;
     @BindView(R.id.field_content) EditText content;
     Uri imageToUploadUri;
+    Toolbar toolbar;
+    AppBarLayout appbarLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_post);
+        setContentView(R.layout.activity_create_shoutout);
         ButterKnife.bind(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("post");
-        getSupportActionBar().setTitle("What's in your mind?");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.shoutOutPost));
+        appbarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
+        toolbar = (Toolbar) findViewById(R.id.toobar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Shout Out");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
@@ -78,8 +89,6 @@ public class CreateShoutout extends AppCompatActivity {
                 performFileSearch();
                 break;
             case R.id.menu_publish_post:
-                Toast.makeText(CreateShoutout.this,mAuth.getCurrentUser().getPhotoUrl().toString(),Toast.LENGTH_SHORT).show();
-                System.out.println(mAuth.getCurrentUser().getPhotoUrl().toString());
                 publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
 
         }
@@ -94,7 +103,6 @@ public class CreateShoutout extends AppCompatActivity {
         // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
         // browser.
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-
         // Filter to only show results that can be "opened", such as a
         // file (as opposed to a list of contacts or timezones)
         //intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -104,8 +112,6 @@ public class CreateShoutout extends AppCompatActivity {
         // To search for all documents available via installed storage providers,
         // it would be "*/*".
         intent.setType("image/*");
-
-
         startActivityForResult(Intent.createChooser(intent,"Choose File"), READ_REQUEST_CODE);
 
 
@@ -175,7 +181,7 @@ public class CreateShoutout extends AppCompatActivity {
             }catch (FileNotFoundException e){
                 e.printStackTrace();
             }
-            StorageReference imageRef = mStorageRef.child("imaget/postAnnouncement"+ File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri));
+            StorageReference imageRef = mStorageRef.child("imaget/"+getString(R.string.shoutOutPost)+ File.separator+getFileName(uri)+file.toString()+File.separator+getFileName(uri));
             imageRef.putStream(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
