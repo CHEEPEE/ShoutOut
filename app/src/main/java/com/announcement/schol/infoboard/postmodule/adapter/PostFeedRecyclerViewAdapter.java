@@ -97,6 +97,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModel.getPostImageUrl());
             Glide.with(context).using(new FirebaseImageLoader()).load(firebaseStorage).override(600,600).into(holder.postImage);
             holder.postImage.getLayoutParams().height=600;
+
         }
         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(postFeedModel.getmAuthorID())){
             holder.postOption.setVisibility(View.VISIBLE);
@@ -106,7 +107,11 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                     postOptionMenu(position);
                 }
             });
+        }else {
+            Glide.clear(holder.postOption);
+            holder.postOption.setVisibility(View.INVISIBLE);
         }
+
 
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
@@ -156,6 +161,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
 
     private void postOptionMenu(final int position){
         final String[] options = {"Edit","Delete"};
+
         new MaterialDialog.Builder(context)
                 .items(options)
                 .itemsCallback(new MaterialDialog.ListCallback() {
@@ -175,6 +181,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                         FirebaseDatabase.getInstance().getReference().child("post").child(postFeedModels.get(position).getKey()).removeValue();
                                         FirebaseDatabase.getInstance().getReference().child("postComment").child(postFeedModels.get(position).getKey()).removeValue();
+                                        FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
                                     }
                                 })
                                         .show();

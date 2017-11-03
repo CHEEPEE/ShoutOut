@@ -37,7 +37,6 @@ public class AdminPostFragment extends Fragment {
     private PostFeedRecyclerViewAdapter postFeedRecyclerViewAdapter;
     private ArrayList<PostFeedModel> postFeedModelsArray = new ArrayList<>();
     FirebaseAuth mAuth;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

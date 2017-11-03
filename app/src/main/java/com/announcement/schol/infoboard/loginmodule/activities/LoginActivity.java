@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
+import com.announcement.schol.infoboard.postmodule.activities.CreatePostActivity;
 import com.announcement.schol.infoboard.postmodule.activities.NewFeed;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -86,8 +88,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                MaterialDialog dialog =  new MaterialDialog.Builder(LoginActivity.this)
+                        .title("Uploading. . .")
+                        .content("Progress")
+                        .progress(true, 100)
+                        .show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
-
             }
 
             @Override

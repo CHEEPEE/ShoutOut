@@ -11,6 +11,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -91,8 +94,14 @@ public class CreateShoutout extends AppCompatActivity {
                 performFileSearch();
                 break;
             case R.id.menu_publish_post:
-                publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
-
+                if (validateForm(title,content)){
+                    publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
+                    MaterialDialog dialog =  new MaterialDialog.Builder(CreateShoutout.this)
+                            .title("Uploading. . .")
+                            .content("Progress")
+                            .progress(true, 100)
+                            .show();
+                }
         }
 
         return super.onOptionsItemSelected(item);
@@ -207,6 +216,17 @@ public class CreateShoutout extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
 
                 }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                  MaterialDialog dialog =  new MaterialDialog.Builder(CreateShoutout.this)
+                            .content("Progress")
+                            .progress(true, 100)
+                            .show();
+
+
+
+                }
             });
         }else {
             String key = mDatabase.push().getKey();
@@ -226,6 +246,26 @@ public class CreateShoutout extends AppCompatActivity {
     }
 
 
+    private boolean validateForm(EditText title,EditText content) {
+        boolean valid = true;
 
+        String Title = title.getText().toString();
+        if (TextUtils.isEmpty(Title)) {
+            title.setError("Required.");
+            valid = false;
+        } else {
+            title.setError(null);
+        }
+
+        String Content = content.getText().toString();
+        if (TextUtils.isEmpty(Content)) {
+            content.setError("Required.");
+            valid = false;
+        } else {
+            content.setError(null);
+        }
+
+        return valid;
+    }
 
     }

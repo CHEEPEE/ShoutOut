@@ -40,7 +40,7 @@ public class NewFeed extends AppCompatActivity {
     private DatabaseReference mPostDatabaseRef;
     private String getUserType="";
     private RecyclerView postFeedRecyclerView;
-    String[] menuItems = {"announcement","textItems"};
+    String[] menuItems = {"announcement","freedonwall"};
     private PostFeedRecyclerViewAdapter postFeedRecyclerViewAdapter;
     private ArrayList<PostFeedModel> postFeedModelsArray = new ArrayList<>();
     FirebaseAuth mAuth,mAuthUser;
@@ -50,6 +50,7 @@ public class NewFeed extends AppCompatActivity {
     static boolean calledAlready = false;
     CircleImageView accountImage;
     Button btnSignOut;
+    Menu actionBarMenu;
 
 
     private SlidingRootNav slidingRootNav;
@@ -146,6 +147,7 @@ public class NewFeed extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 getUserType = dataSnapshot.getValue().toString();
                 System.out.println("User type: "+getUserType);
+                actionBarMenu = menu;
                 if (getUserType.equals("admin")){
                     getMenuInflater().inflate(R.menu.admin_menu_newsfeed,menu);
                 }
@@ -184,6 +186,7 @@ public class NewFeed extends AppCompatActivity {
 // replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.fragement_layout,fragment);
         fragmentTransaction.commit(); // save the changes
+
     }
 
     private void signOut(){
@@ -193,13 +196,48 @@ public class NewFeed extends AppCompatActivity {
         startActivity(singOutIntent);
     }
 
-    private void itemSeletct(String item) {
+    private void itemSeletct(final String item) {
         for (int i = 0; i < menuItems.length; i++) {
-            if(item.equals(menuItems[i])){
-                textItems[i].setTextColor(getResources().getColor(R.color.colorAccent));
-            }else {
-                textItems[i].setTextColor(getResources().getColor(R.color.darkGrey));
-            }
+           final int index = i;
+
+            databaseRefUsers.child("users").child(getCurrentUserId).child("accountType").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    getUserType = dataSnapshot.getValue().toString();
+                    System.out.println("User type: "+getUserType);
+                    if (getUserType.equals("admin")){
+                        if(item.equals(menuItems[index])){
+                            textItems[index].setTextColor(getResources().getColor(R.color.colorAccent));
+                            getSupportActionBar().setTitle("Freedom Wall");
+                            actionBarMenu.clear();
+                            getMenuInflater().inflate(R.menu.blank_menu,actionBarMenu);
+                        }else {
+                            textItems[index].setTextColor(getResources().getColor(R.color.darkGrey));
+                            getSupportActionBar().setTitle("Announcement");
+                            actionBarMenu.clear();
+                            getMenuInflater().inflate(R.menu.admin_menu_newsfeed,actionBarMenu);
+                        }
+                    }else {
+                        if(item.equals(menuItems[index])){
+                            textItems[index].setTextColor(getResources().getColor(R.color.colorAccent));
+                            getSupportActionBar().setTitle("Freedom Wall");
+                            actionBarMenu.clear();
+                            getMenuInflater().inflate(R.menu.blank_menu,actionBarMenu);
+                        }else {
+                            textItems[index].setTextColor(getResources().getColor(R.color.darkGrey));
+                            getSupportActionBar().setTitle("Announcement");
+                            actionBarMenu.clear();
+                            getMenuInflater().inflate(R.menu.blank_menu,actionBarMenu);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
     }
 }

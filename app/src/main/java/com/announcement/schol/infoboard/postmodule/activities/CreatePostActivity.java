@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -84,13 +86,13 @@ public class CreatePostActivity extends AppCompatActivity {
             case R.id.menu_publish_post:
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                Toast.makeText(CreatePostActivity.this,mAuth.getCurrentUser().getPhotoUrl().toString(),Toast.LENGTH_SHORT).show();
-                System.out.println(mAuth.getCurrentUser().getPhotoUrl().toString());
-                publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
-                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.relativeLayout),
-                        "Posting . . .", Snackbar.LENGTH_SHORT);
-                mySnackbar.show();
-
+                if (validateForm(title,content)){
+                    publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
+                    MaterialDialog dialog =  new MaterialDialog.Builder(CreatePostActivity.this)
+                            .content("Progress")
+                            .progress(true, 100)
+                            .show();
+                }
         }
 
         return super.onOptionsItemSelected(item);
@@ -193,9 +195,11 @@ public class CreatePostActivity extends AppCompatActivity {
                     Map<String,Object> postValue = createPostMapModel.toMap();
                     Map<String,Object> childUpdates = new HashMap<>();
                     childUpdates.put(key,postValue);
+
                     mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+
                             finish();
                         }
                     });
@@ -225,7 +229,27 @@ public class CreatePostActivity extends AppCompatActivity {
 
 
     }
+    private boolean validateForm(EditText title,EditText content) {
+        boolean valid = true;
 
+        String Title = title.getText().toString();
+        if (TextUtils.isEmpty(Title)) {
+            title.setError("Required.");
+            valid = false;
+        } else {
+            title.setError(null);
+        }
+
+        String Content = content.getText().toString();
+        if (TextUtils.isEmpty(Content)) {
+            content.setError("Required.");
+            valid = false;
+        } else {
+            content.setError(null);
+        }
+
+        return valid;
+    }
 
 
 
