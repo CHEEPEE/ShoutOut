@@ -27,7 +27,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.NetworkPolicy;
@@ -46,8 +49,9 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     private ArrayList<PostFeedModel> postFeedModels;
     private Context context;
     private ArrayList<Boolean> getNull;
+    private int Comment_Number;
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,author,bodyContent;
+        public TextView title,author,bodyContent,commentNumber;
         public CircleImageView accountImage;
         public ImageView postImage,postOption;
         public Button btnComment,btnShare;
@@ -64,6 +68,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             accountImage = (CircleImageView) view.findViewById(R.id.account_img);
             btnComment = (Button) view.findViewById(R.id.btn_comment);
             postOption = (ImageView) view.findViewById(R.id.post_option);
+            commentNumber = (TextView) view.findViewById(R.id.comment_number);
 
         }
     }
@@ -82,7 +87,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     }
 
     @Override
-    public void onBindViewHolder(PostFeedRecyclerViewAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final PostFeedRecyclerViewAdapter.MyViewHolder holder, final int position) {
 
         final PostFeedModel postFeedModel = postFeedModels.get(position);
 
@@ -111,6 +116,23 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             Glide.clear(holder.postOption);
             holder.postOption.setVisibility(View.INVISIBLE);
         }
+
+        FirebaseDatabase.getInstance().getReference().child("postComment").child(postFeedModel.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Comment_Number=0;
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Comment_Number++;
+                }
+                holder.commentNumber.setText(""+Comment_Number);
+                System.out.println(""+Comment_Number);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         holder.title.setText(postFeedModel.getPostTitle());
@@ -158,7 +180,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     public int getItemCount() {
         return postFeedModels.size();
     }
-
     private void postOptionMenu(final int position){
         final String[] options = {"Edit","Delete"};
 
@@ -169,7 +190,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (text.toString()){
                             case "Edit":
-
                                 break;
                             case "Delete":
                                 new MaterialDialog.Builder(context)
@@ -185,11 +205,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                                     }
                                 })
                                         .show();
-
                                 break;
-
-
-
                         }
                     }
                 })

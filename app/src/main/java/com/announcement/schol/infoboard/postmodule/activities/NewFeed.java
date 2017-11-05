@@ -3,6 +3,8 @@ package com.announcement.schol.infoboard.postmodule.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -64,7 +66,6 @@ public class NewFeed extends AppCompatActivity {
         setContentView(R.layout.activity_new_feed);
         toolbar = (Toolbar) findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
-
        //firebase for OfflineMode Get instance
         if (!calledAlready)
         {
@@ -118,8 +119,6 @@ public class NewFeed extends AppCompatActivity {
                 itemSeletct(menuItems[1]);
             }
         });
-
-
 
         accountImage = (CircleImageView) findViewById(R.id.account_img);
         accountName = (TextView) findViewById(R.id.text_acount_name);

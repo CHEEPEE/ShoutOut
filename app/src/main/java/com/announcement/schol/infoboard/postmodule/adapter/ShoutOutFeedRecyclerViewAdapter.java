@@ -27,7 +27,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.Resource;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -45,8 +48,9 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
     private ArrayList<PostFeedModel> postFeedModels;
     private Context context;
     private ArrayList<Boolean> getNull;
+    private int Comment_Number=0;
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,author,bodyContent;
+        public TextView title,author,bodyContent,commentNumber;
         public CircleImageView accountImage;
         public ImageView postImage,postOption;
         public Button btnComment,btnShare;
@@ -63,6 +67,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
             accountImage = (CircleImageView) view.findViewById(R.id.account_img);
             btnComment = (Button) view.findViewById(R.id.btn_comment);
             postOption = (ImageView) view.findViewById(R.id.post_option);
+            commentNumber = (TextView) view.findViewById(R.id.comment_number);
         }
     }
 
@@ -80,7 +85,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
     }
 
     @Override
-    public void onBindViewHolder(ShoutOutFeedRecyclerViewAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final ShoutOutFeedRecyclerViewAdapter.MyViewHolder holder, final int position) {
 
         final PostFeedModel postFeedModel = postFeedModels.get(position);
 
@@ -108,6 +113,23 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
             Glide.clear(holder.postOption);
             holder.postOption.setVisibility(View.INVISIBLE);
         }
+
+        FirebaseDatabase.getInstance().getReference().child("shoutOutComment").child(postFeedModel.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Comment_Number=0;
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Comment_Number++;
+                }
+                holder.commentNumber.setText(""+Comment_Number);
+                System.out.println(""+Comment_Number);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
         holder.bodyContent.setText(postFeedModel.getContent());
