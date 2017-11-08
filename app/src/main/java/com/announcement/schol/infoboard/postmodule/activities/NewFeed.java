@@ -24,6 +24,9 @@ import com.announcement.schol.infoboard.postmodule.fragment.AdminPostFragment;
 import com.announcement.schol.infoboard.postmodule.fragment.FreedomWallFragement;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,14 +54,16 @@ public class NewFeed extends AppCompatActivity {
     TextView[] textItems = new TextView[menuItems.length];
     static boolean calledAlready = false;
     CircleImageView accountImage;
-    Button btnSignOut;
+    Button btnSignOut,btnRemoveAds;
     Menu actionBarMenu;
+    String paiduser;
 
 
     private SlidingRootNav slidingRootNav;
     private DatabaseReference databaseRefUsers;
     private FirebaseDatabase mFirebaseDatabase;
     Toolbar toolbar;
+    private AdView mAdView;
     private String getCurrentUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +72,38 @@ public class NewFeed extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
        //firebase for OfflineMode Get instance
+
         if (!calledAlready)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             calledAlready = true;
         }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        MobileAds.initialize(NewFeed.this,getString(R.string.admobAppId));
 
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        System.out.println("paiduser"+FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("paiduser"));
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("paiduser").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    System.out.println("paiduser:" +dataSnapshot.getValue());
+                    if (dataSnapshot.getValue().equals("paid")){
+                        mAdView.getLayoutParams().height=0;
+                    }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         //toolBar Initialize
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
@@ -135,6 +164,13 @@ public class NewFeed extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signOut();
+            }
+        });
+        btnRemoveAds = (Button) findViewById(R.id.btn_remove_ads);
+        btnRemoveAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().getCurrentUser().getUid();
             }
         });
 

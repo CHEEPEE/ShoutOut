@@ -7,7 +7,7 @@
     android:paddingRight="10dp"
     android:paddingTop="60dp"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/lightGrey">
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/account_details"
@@ -99,13 +99,26 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <Button
+                android:text="Remove Ads"
+                android:id="@+id/btn_remove_ads"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="35dp"
+                android:drawableStart="@drawable/action_ads"
+                android:textColor="@color/darkGrey"
+                android:backgroundTint="@color/darkGrey"
+                android:drawableTint="@color/darkGrey"
+                android:background="@android:color/transparent"
+                />
+            <Button
                 android:text="Sign Out Account"
                 android:id="@+id/btn_logout"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_height="35dp"
-                android:drawableStart="@drawable/action_logout"
+                android:drawableStart="@drawable/action_sign_out"
                 android:textColor="@color/darkGrey"
                 android:backgroundTint="@color/darkGrey"
                 android:drawableTint="@color/darkGrey"

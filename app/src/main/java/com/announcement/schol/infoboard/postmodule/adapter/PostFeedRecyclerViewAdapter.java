@@ -22,6 +22,7 @@ import com.announcement.schol.infoboard.postmodule.activities.CommentsActivity;
 import com.announcement.schol.infoboard.postmodule.activities.PostImageActivity;
 import com.announcement.schol.infoboard.blurbehind.BlurBehind;
 import com.announcement.schol.infoboard.blurbehind.OnBlurCompleteListener;
+import com.announcement.schol.infoboard.postmodule.activities.UpdateAdminPost;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -69,6 +70,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             btnComment = (Button) view.findViewById(R.id.btn_comment);
             postOption = (ImageView) view.findViewById(R.id.post_option);
             commentNumber = (TextView) view.findViewById(R.id.comment_number);
+            btnShare = (Button) view.findViewById(R.id.btn_share);
 
         }
     }
@@ -174,6 +176,17 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
 
             }
         });
+
+        holder.btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+postFeedModel.getContent());
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
+            }
+        });
     }
 
     @Override
@@ -190,6 +203,19 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (text.toString()){
                             case "Edit":
+                                PostFeedModel postFeedModeler = postFeedModels.get(position);
+
+                                Intent i = new Intent(context, UpdateAdminPost.class);
+                                i.putExtra("postkey",postFeedModels.get(position).getKey()).putExtra("uid",postFeedModeler.getmAuthorID())
+                                        .putExtra("imgUrl",postFeedModeler.getPostImageUrl())
+                                        .putExtra("userImg",postFeedModeler.getAuthorImg())
+                                        .putExtra("title",postFeedModeler.getPostTitle())
+                                        .putExtra("contentBody",postFeedModeler.getContent())
+                                        .putExtra("author",postFeedModeler.getAuthor()).putExtra("postType","post");
+                                context.startActivity(i);
+
+
+
                                 break;
                             case "Delete":
                                 new MaterialDialog.Builder(context)
@@ -203,8 +229,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                                         FirebaseDatabase.getInstance().getReference().child("postComment").child(postFeedModels.get(position).getKey()).removeValue();
                                         FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
                                     }
-                                })
-                                        .show();
+                                }).show();
                                 break;
                         }
                     }

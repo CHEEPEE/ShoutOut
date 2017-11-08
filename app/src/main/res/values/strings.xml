@@ -5,6 +5,7 @@
     <string name="facebook_app_id">292237447930360</string>
     <string name="fb_login_protocol_scheme">fb292237447930360</string>
     <string name="shoutOutPost">shoutOutPost</string>
+    <string name="admobAppId">ca-app-pub-8579906727886601~3241424096</string>
 
 
 </resources>

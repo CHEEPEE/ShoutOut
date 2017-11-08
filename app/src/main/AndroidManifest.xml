@@ -10,15 +10,21 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-       <!-- <meta-data
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider292237447930360"
+            android:exported="true" />
+
+        <!--
+        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/actioncomment" />
         &lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming
@@ -31,8 +37,8 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/app_name"/>
-         [END fcm_default_channel] -->
-
+         [END fcm_default_channel]
+        -->
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -65,18 +71,19 @@
         <activity android:name=".postmodule.activities.CreatePostActivity" />
         <activity
             android:name=".postmodule.activities.PostImageActivity"
-            android:theme="@style/NoActionBar"
-            />
-        <activity android:name=".postmodule.activities.CommentsActivity"
-            android:theme="@style/NoActionBar"></activity>
-        <activity android:name=".postmodule.activities.ShoutOutCommentsActivity"
-            android:theme="@style/NoActionBar"></activity>
-        <activity android:name=".postmodule.activities.CreateShoutout"
-            android:theme="@style/NoActionBar"
-            ></activity>
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".postmodule.activities.CommentsActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".postmodule.activities.ShoutOutCommentsActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".postmodule.activities.CreateShoutout"
+            android:theme="@style/NoActionBar" />
 
-
-     <!--   <service
+        <!--
+        <service
             android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -89,9 +96,10 @@
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
-        </service>-->
+        </service>
+        -->
 
-
+        <activity android:name=".postmodule.activities.UpdateAdminPost"></activity>
     </application>
 
 </manifest>

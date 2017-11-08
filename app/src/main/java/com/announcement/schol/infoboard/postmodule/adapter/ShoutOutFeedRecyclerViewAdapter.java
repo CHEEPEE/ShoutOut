@@ -22,6 +22,7 @@ import com.announcement.schol.infoboard.blurbehind.OnBlurCompleteListener;
 import com.announcement.schol.infoboard.postmodule.activities.CommentsActivity;
 import com.announcement.schol.infoboard.postmodule.activities.PostImageActivity;
 import com.announcement.schol.infoboard.postmodule.activities.ShoutOutCommentsActivity;
+import com.announcement.schol.infoboard.postmodule.activities.UpdateAdminPost;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.Resource;
@@ -186,6 +187,17 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (text.toString()){
                             case "Edit":
+
+                                PostFeedModel postFeedModeler = postFeedModels.get(position);
+
+                                Intent i = new Intent(context, UpdateAdminPost.class);
+                                i.putExtra("postkey",postFeedModels.get(position).getKey()).putExtra("uid",postFeedModeler.getmAuthorID())
+                                        .putExtra("imgUrl",postFeedModeler.getPostImageUrl())
+                                        .putExtra("userImg",postFeedModeler.getAuthorImg())
+                                        .putExtra("title",postFeedModeler.getPostTitle())
+                                        .putExtra("contentBody",postFeedModeler.getContent())
+                                        .putExtra("author",postFeedModeler.getAuthor()).putExtra("postType","shoutOutPost");
+                                context.startActivity(i);
 
                                 break;
                             case "Delete":
