@@ -69,6 +69,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
             btnComment = (Button) view.findViewById(R.id.btn_comment);
             postOption = (ImageView) view.findViewById(R.id.post_option);
             commentNumber = (TextView) view.findViewById(R.id.comment_number);
+            btnShare = (Button) view.findViewById(R.id.btn_share);
         }
     }
 
@@ -169,6 +170,17 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
                     }
                 });
 
+            }
+        });
+
+        holder.btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+postFeedModel.getContent());
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
             }
         });
     }

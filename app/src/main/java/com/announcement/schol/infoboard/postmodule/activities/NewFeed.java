@@ -209,7 +209,9 @@ public class NewFeed extends AppCompatActivity {
                 break;
 
             case R.id.sign_out_id:
-               signOut();
+
+                signOut();
+
 
         }
 
@@ -231,6 +233,7 @@ public class NewFeed extends AppCompatActivity {
         mAuth.signOut();
         Intent singOutIntent = new Intent(NewFeed.this,LoginActivity.class);
         startActivity(singOutIntent);
+        finish();
     }
 
     private void itemSeletct(final String item) {
