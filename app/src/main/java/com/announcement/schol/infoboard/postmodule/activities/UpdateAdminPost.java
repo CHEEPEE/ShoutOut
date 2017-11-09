@@ -46,7 +46,7 @@ public class UpdateAdminPost extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.createpostmenu, menu);
+        getMenuInflater().inflate(R.menu.updatepostmenu, menu);
 
         // Configure the search info and add any event listeners...
         return super.onCreateOptionsMenu(menu);

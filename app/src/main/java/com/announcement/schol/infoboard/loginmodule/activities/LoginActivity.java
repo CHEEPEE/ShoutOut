@@ -182,6 +182,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             } else {
                 // Google Sign In failed
                 Log.e(TAG, "Google Sign In failed.");
+                loadingLayout.setVisibility(View.GONE);
             }
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);

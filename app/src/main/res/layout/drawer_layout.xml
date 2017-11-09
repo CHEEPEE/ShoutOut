@@ -99,7 +99,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <Button
-                android:text="Remove Ads"
+                android:text="Remove Ads (Coming Soon)"
                 android:id="@+id/btn_remove_ads"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"

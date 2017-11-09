@@ -6,17 +6,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
@@ -54,6 +54,9 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText title;
     @BindView(R.id.field_content) EditText content;
     Uri imageToUploadUri;
+    @BindView(R.id.clear_image)
+    FloatingActionButton floatClearImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,15 @@ public class CreatePostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         authorrID = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        floatClearImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageToUpload.setImageDrawable(null);
+                imageToUploadUri = null;
+                floatClearImage.setVisibility(View.GONE);
+            }
+        });
+
     }
 
 
@@ -150,6 +162,7 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void setImage(Uri uri){
+        floatClearImage.setVisibility(View.VISIBLE);
         Picasso.with(CreatePostActivity.this).load(uri).resize(300,600).into(imageToUpload);
 
     }

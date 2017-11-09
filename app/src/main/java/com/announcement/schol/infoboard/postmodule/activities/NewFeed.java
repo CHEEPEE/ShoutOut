@@ -103,6 +103,8 @@ public class NewFeed extends AppCompatActivity {
             }
         });
 
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         //toolBar Initialize
@@ -125,7 +127,7 @@ public class NewFeed extends AppCompatActivity {
                 .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.drawer_layout)
                 .withDragDistance(250)
-                .withRootViewScale(.8f)
+                .withRootViewScale(1f)
                 .withToolbarMenuToggle(toolbar)
                 .withContentClickableWhenMenuOpened(true)
                 .inject();
