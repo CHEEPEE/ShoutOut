@@ -59,6 +59,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:11.4.2'
 
     compile 'com.facebook.android:facebook-login:[4,5)'
+    compile 'com.facebook.android:facebook-share:[4,5)'
 
     compile 'com.yarolegovich:sliding-root-nav:1.1.0'
     compile 'com.android.support:multidex:1.0.1'

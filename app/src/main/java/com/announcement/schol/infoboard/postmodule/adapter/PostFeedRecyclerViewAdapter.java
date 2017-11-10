@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +29,8 @@ import com.announcement.schol.infoboard.postmodule.activities.UpdateAdminPost;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +42,8 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -180,11 +187,22 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
         holder.btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               /* try {
+                    URL url = new URL(postFeedModel.getPostImageUrl());
+                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch(IOException e) {
+                    System.out.println(e);
+                }
+                Uri uri = Uri.parse(postFeedModel.getPostImageUrl());*/
+                Activity activity = (Activity) context;
+                System.out.println(postFeedModel.getPostImageUrl());
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+postFeedModel.getContent());
+                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+
+                        postFeedModel.getContent()+"\n\n"+postFeedModel.getPostImageUrl());
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);
+
             }
         });
     }

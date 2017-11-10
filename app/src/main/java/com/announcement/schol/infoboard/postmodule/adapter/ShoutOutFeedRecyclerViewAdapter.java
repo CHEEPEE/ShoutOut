@@ -178,7 +178,8 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+postFeedModel.getContent());
+                sendIntent.putExtra(Intent.EXTRA_TEXT,postFeedModel.getPostTitle()+"\n"+postFeedModel.getContent()
+                +"\n\n"+postFeedModel.getPostImageUrl());
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);
             }
