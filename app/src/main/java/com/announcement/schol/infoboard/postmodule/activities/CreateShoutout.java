@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -58,6 +60,9 @@ public class CreateShoutout extends AppCompatActivity {
     Toolbar toolbar;
     AppBarLayout appbarLayout;
     private String getAuthorID;
+    @BindView(R.id.clear_image)
+    FloatingActionButton floatClearImage;
+   private MaterialDialog dialog;
 
 
     @Override
@@ -75,6 +80,14 @@ public class CreateShoutout extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         getAuthorID = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        floatClearImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageToUpload.setImageDrawable(null);
+                imageToUploadUri = null;
+                floatClearImage.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -96,7 +109,7 @@ public class CreateShoutout extends AppCompatActivity {
             case R.id.menu_publish_post:
                 if (validateForm(title,content)){
                     publishPost(mAuth.getCurrentUser().getDisplayName(),title.getText().toString(),mAuth.getCurrentUser().getPhotoUrl().toString(),content.getText().toString(),imageToUploadUri);
-                    MaterialDialog dialog =  new MaterialDialog.Builder(CreateShoutout.this)
+                    dialog =  new MaterialDialog.Builder(CreateShoutout.this)
                             .title("Uploading. . .")
                             .content("Progress")
                             .progress(true, 100)
@@ -156,6 +169,7 @@ public class CreateShoutout extends AppCompatActivity {
     }
 
     private void setImage(Uri uri){
+        floatClearImage.setVisibility(View.VISIBLE);
         Picasso.with(CreateShoutout.this).load(uri).resize(300,600).into(imageToUpload);
 
     }
@@ -214,15 +228,19 @@ public class CreateShoutout extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
+                    Toast.makeText(CreateShoutout.this,"Error Posting",Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                  MaterialDialog dialog =  new MaterialDialog.Builder(CreateShoutout.this)
+/*
+                    dialog =  new MaterialDialog.Builder(CreateShoutout.this)
                             .content("Progress")
                             .progress(true, 100)
                             .show();
+*/
 
 
 
@@ -239,10 +257,14 @@ public class CreateShoutout extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
                     finish();
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
+                    Toast.makeText(CreateShoutout.this,"Error Posting",Toast.LENGTH_SHORT).show();
+                }
             });
         }
-
-
     }
 
 

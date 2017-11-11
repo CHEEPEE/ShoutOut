@@ -214,18 +214,21 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
 
                                 break;
                             case "Delete":
-                                new MaterialDialog.Builder(context)
+                               MaterialDialog materialDialog =  new MaterialDialog.Builder(context)
                                         .title("Detele")
                                         .content("Are You Sure to Delete this Post. You can't see this post in the future")
-                                        .positiveText("Procced")
-                                        .negativeText("Cancel").onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        FirebaseDatabase.getInstance().getReference().child("shoutOutPost").child(postFeedModels.get(position).getKey()).removeValue();
-                                        FirebaseDatabase.getInstance().getReference().child("shoutOutComment").child(postFeedModels.get(position).getKey()).removeValue();
-                                        FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
-                                    }
-                                })
+                                        .positiveText("Procced").onPositive(new MaterialDialog.SingleButtonCallback() {
+                                           @Override
+                                           public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                               FirebaseDatabase.getInstance().getReference().child("shoutOutPost").child(postFeedModels.get(position).getKey()).removeValue();
+                                               FirebaseDatabase.getInstance().getReference().child("shoutOutComment").child(postFeedModels.get(position).getKey()).removeValue();
+                                               if (!postFeedModels.get(position).getPostImageUrl().equals("null")) {
+                                                   FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
+                                               }
+
+                                           }
+                                       })
+                                        .negativeText("Cancel")
                                         .show();
                                 break;
                         }

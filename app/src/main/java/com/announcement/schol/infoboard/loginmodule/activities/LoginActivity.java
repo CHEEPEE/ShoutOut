@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     RelativeLayout loadingLayout;
     @BindView(R.id.btn_facebook_login)
     Button faceBookLogin;
+    MaterialDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +89,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                MaterialDialog dialog =  new MaterialDialog.Builder(LoginActivity.this)
-                        .title("Uploading. . .")
-                        .content("Progress")
+                dialog =  new MaterialDialog.Builder(LoginActivity.this)
+                        .content("Logging In. . . ")
                         .progress(true, 100)
                         .show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Intent i = new Intent(LoginActivity.this,NewFeed.class);
                             startActivity(i);
                             finish();
+                            dialog.dismiss();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -203,6 +204,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                         } else {
                             startActivity(new Intent(LoginActivity.this, NewFeed.class));
                             finish();

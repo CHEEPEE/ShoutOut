@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "236974465721-1avjkf4d3qh5rs0qc7aquh124oupguee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.announcement.schol.infoboard",
+            "certificate_hash": "78e25afa5eecc59eac19e2f36eeda4e2cb0c784a"
+          }
+        },
+        {
           "client_id": "236974465721-n76m75g30nhfm0ghs1ilq99l71urfjfr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

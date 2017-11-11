@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">InfoBoard</string>
+    <string name="app_name">ShoutOut Announcement</string>
     <string name="web_default_client_id">236974465721-n76m75g30nhfm0ghs1ilq99l71urfjfr.apps.googleusercontent.com</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="facebook_app_id">292237447930360</string>
     <string name="fb_login_protocol_scheme">fb292237447930360</string>
     <string name="shoutOutPost">shoutOutPost</string>
-    <string name="admobAppId">ca-app-pub-8579906727886601~3241424096</string>
-
+    <string name="admobAppId">ca-app-pub-6740756966384238~5001808886</string>
+    <string name="adUnitId">ca-app-pub-6740756966384238/9588879019</string>
 
 </resources>

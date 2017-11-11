@@ -245,7 +245,9 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                         FirebaseDatabase.getInstance().getReference().child("post").child(postFeedModels.get(position).getKey()).removeValue();
                                         FirebaseDatabase.getInstance().getReference().child("postComment").child(postFeedModels.get(position).getKey()).removeValue();
-                                        FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
+                                        if (!postFeedModels.get(position).getPostImageUrl().equals("null")) {
+                                            FirebaseStorage.getInstance().getReferenceFromUrl(postFeedModels.get(position).getPostImageUrl()).delete();
+                                        }
                                     }
                                 }).show();
                                 break;

@@ -71,8 +71,6 @@ public class NewFeed extends AppCompatActivity {
         setContentView(R.layout.activity_new_feed);
         toolbar = (Toolbar) findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
-       //firebase for OfflineMode Get instance
-
         if (!calledAlready)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -175,6 +173,8 @@ public class NewFeed extends AppCompatActivity {
                 FirebaseAuth.getInstance().getCurrentUser().getUid();
             }
         });
+        //firebase for OfflineMode Get instance
+
 
     }
     @Override
