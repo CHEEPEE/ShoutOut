@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
+import com.announcement.schol.infoboard.utils.Utilities;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,7 +66,7 @@ public class UpdateAdminPost extends AppCompatActivity {
                             .show();
                     String key = postKey;
                     CreatePostMapModel updatepostModel = new CreatePostMapModel(author,title.getText().toString(),content.getText().toString()
-                    ,userImg,imgUrl,key,uid);
+                    ,userImg,imgUrl,key,uid, Utilities.getDateToStrig());
                     Map<String, Object> postValue = updatepostModel.toMap();
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put(key, postValue);

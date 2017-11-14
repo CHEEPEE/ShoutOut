@@ -23,6 +23,7 @@ import com.announcement.schol.infoboard.postmodule.adapter.PostFeedRecyclerViewA
 import com.announcement.schol.infoboard.postmodule.fragment.AdminPostFragment;
 import com.announcement.schol.infoboard.postmodule.fragment.FreedomWallFragement;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
+import com.announcement.schol.infoboard.utils.Utilities;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -77,12 +78,13 @@ public class NewFeed extends AppCompatActivity {
             calledAlready = true;
         }
 
+
         MobileAds.initialize(NewFeed.this,getString(R.string.admobAppId));
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
+        System.out.println("Current Time Date"+Utilities.getDateToStrig());
         System.out.println("paiduser"+FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("paiduser"));
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("paiduser").addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,12 +94,10 @@ public class NewFeed extends AppCompatActivity {
                     if (dataSnapshot.getValue().equals("paid")){
                         mAdView.getLayoutParams().height=0;
                     }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 

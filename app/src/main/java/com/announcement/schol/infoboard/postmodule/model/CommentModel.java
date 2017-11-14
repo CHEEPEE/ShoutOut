@@ -8,7 +8,11 @@ public class CommentModel {
     private String Author;
     private String msg;
     private String userAccountImageUrl;
+    private String timeStamp;
 
+    public String getTimeStamp(){
+        return timeStamp;
+    }
     public String getAuthor(){
         return Author;
     }
@@ -26,5 +30,8 @@ public class CommentModel {
     }
     public void setUserAccountImageUrl(String userImageUrl){
         this.userAccountImageUrl = userImageUrl;
+    }
+    public void setTimeStamp(String timeDate){
+        this.timeStamp = timeDate;
     }
 }

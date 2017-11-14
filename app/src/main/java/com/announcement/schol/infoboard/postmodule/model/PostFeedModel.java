@@ -6,7 +6,10 @@ package com.announcement.schol.infoboard.postmodule.model;
 
 public class PostFeedModel {
 
-private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl,mPostKey,mAuthorID;
+private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl,mPostKey,mAuthorID,mTimeStamp;
+    public String getmTimeStamp(){
+        return mTimeStamp;
+    }
     public String getmAuthorID(){
         return mAuthorID;
     }
@@ -48,6 +51,9 @@ private String mAuthor,mTitle,mcontent,mAuthorImg,mPostImageUrl,mPostKey,mAuthor
     }
     public void setAuthorID(String postAuthorID){
         this.mAuthorID = postAuthorID;
+    }
+    public void setmTimeStamp(String timeStamp){
+        this.mTimeStamp = timeStamp;
     }
 
 }

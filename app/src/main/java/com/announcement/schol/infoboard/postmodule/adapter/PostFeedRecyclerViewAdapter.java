@@ -27,6 +27,7 @@ import com.announcement.schol.infoboard.blurbehind.BlurBehind;
 import com.announcement.schol.infoboard.blurbehind.OnBlurCompleteListener;
 import com.announcement.schol.infoboard.postmodule.activities.UpdateAdminPost;
 import com.announcement.schol.infoboard.postmodule.model.PostFeedModel;
+import com.announcement.schol.infoboard.utils.Utilities;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.facebook.share.model.ShareLinkContent;
@@ -59,7 +60,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
     private ArrayList<Boolean> getNull;
     private int Comment_Number;
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,author,bodyContent,commentNumber;
+        public TextView title,author,bodyContent,commentNumber,timeDate;
         public CircleImageView accountImage;
         public ImageView postImage,postOption;
         public Button btnComment,btnShare;
@@ -67,9 +68,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
         public MyViewHolder(View view){
             super(view);
             postImage = (ImageView)view.findViewById(R.id.post_img);
-
-           /* btnComment = (Button) view.findViewById(R.id.btn_comment);
-            btnShare= (Button) view.findViewById(R.id.btn_share);*/
             title = (TextView) view.findViewById(R.id.post_title);
             author = (TextView) view.findViewById(R.id.post_author);
             bodyContent = (TextView) view.findViewById(R.id.body_content);
@@ -78,6 +76,7 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
             postOption = (ImageView) view.findViewById(R.id.post_option);
             commentNumber = (TextView) view.findViewById(R.id.comment_number);
             btnShare = (Button) view.findViewById(R.id.btn_share);
+            timeDate = (TextView) view.findViewById(R.id.time_date);
 
         }
     }
@@ -100,10 +99,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
 
         final PostFeedModel postFeedModel = postFeedModels.get(position);
 
-
-
-        //FirebaseDatabase mstorageRef = postFeedModel.getPostImageUrl();
-       // Picasso.with(context).load(postFeedModel.getPostImageUrl()).centerInside().resize(900,900).into(holder.postImage);
         if (postFeedModel.getPostImageUrl().equals(null) || postFeedModel.getPostImageUrl().equals("null")){
             Glide.clear(holder.postImage);
             holder.postImage.getLayoutParams().height=0;
@@ -136,14 +131,12 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
                 holder.commentNumber.setText(""+Comment_Number);
                 System.out.println(""+Comment_Number);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
+        holder.timeDate.setText(postFeedModel.getmTimeStamp());
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
         holder.bodyContent.setText(postFeedModel.getContent());
@@ -187,14 +180,6 @@ public class PostFeedRecyclerViewAdapter extends RecyclerView.Adapter<PostFeedRe
         holder.btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* try {
-                    URL url = new URL(postFeedModel.getPostImageUrl());
-                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                } catch(IOException e) {
-                    System.out.println(e);
-                }
-                Uri uri = Uri.parse(postFeedModel.getPostImageUrl());*/
-                Activity activity = (Activity) context;
                 System.out.println(postFeedModel.getPostImageUrl());
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);

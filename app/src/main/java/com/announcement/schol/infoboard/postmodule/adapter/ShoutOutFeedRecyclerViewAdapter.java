@@ -51,7 +51,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
     private ArrayList<Boolean> getNull;
     private int Comment_Number=0;
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,author,bodyContent,commentNumber;
+        public TextView title,author,bodyContent,commentNumber,timeDate;
         public CircleImageView accountImage;
         public ImageView postImage,postOption;
         public Button btnComment,btnShare;
@@ -59,7 +59,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
         public MyViewHolder(View view){
             super(view);
             postImage = (ImageView)view.findViewById(R.id.post_img);
-
+            timeDate = (TextView) view.findViewById(R.id.time_date);
            /* btnComment = (Button) view.findViewById(R.id.btn_comment);
             btnShare= (Button) view.findViewById(R.id.btn_share);*/
             title = (TextView) view.findViewById(R.id.post_title);
@@ -132,6 +132,7 @@ public class ShoutOutFeedRecyclerViewAdapter extends RecyclerView.Adapter<ShoutO
 
             }
         });
+        holder.timeDate.setText(postFeedModel.getmTimeStamp());
         holder.title.setText(postFeedModel.getPostTitle());
         holder.author.setText(postFeedModel.getAuthor());
         holder.bodyContent.setText(postFeedModel.getContent());

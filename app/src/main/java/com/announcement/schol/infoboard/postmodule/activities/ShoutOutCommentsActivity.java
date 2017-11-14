@@ -17,6 +17,7 @@ import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.adapter.CommentRecyclerViewAdapter;
 import com.announcement.schol.infoboard.postmodule.model.CommentModel;
 import com.announcement.schol.infoboard.postmodule.model.PostCommentModel;
+import com.announcement.schol.infoboard.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +71,7 @@ public class ShoutOutCommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String key = mDatabaseRef.push().getKey();
-                PostCommentModel postCommentModel = new PostCommentModel(firebaseAuth.getCurrentUser().getDisplayName(),commentField.getText().toString(),firebaseAuth.getCurrentUser().getPhotoUrl().toString());
+                PostCommentModel postCommentModel = new PostCommentModel(firebaseAuth.getCurrentUser().getDisplayName(),commentField.getText().toString(),firebaseAuth.getCurrentUser().getPhotoUrl().toString(), Utilities.getDateToStrig());
                 Map<String,Object> commentValue = postCommentModel.toMap();
                 Map<String,Object> childUpdate = new HashMap<>();
                 childUpdate.put(key,commentValue);
@@ -106,10 +107,9 @@ public class ShoutOutCommentsActivity extends AppCompatActivity {
                 commentModel.setAuthor(postCommentModel.author);
                 commentModel.setMsg(postCommentModel.message);
                 commentModel.setUserAccountImageUrl(postCommentModel.userAccountImageUrl);
+                commentModel.setTimeStamp(postCommentModel.timeStamp);
                 commentModelsArray.add(commentModel);
                 commentRecyclerViewAdapter.notifyDataSetChanged();
-                System.out.println(postCommentModel.userAccountImageUrl);
-                System.out.println(postCommentModel.message);
                 commentNumber++;
                 commentsRecyclerView.smoothScrollToPosition(commentNumber);
             }

@@ -136,15 +136,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     Toast.LENGTH_SHORT).show();
                             loadingLayout.setVisibility(View.GONE);
                         }
-
                     }
                 });
     }
-
-
-
-
-
     private void signInGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);

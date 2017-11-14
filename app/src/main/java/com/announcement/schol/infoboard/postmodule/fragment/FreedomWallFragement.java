@@ -75,9 +75,13 @@ public class FreedomWallFragement extends Fragment {
                     FeedMdel.setTitle(createPostMapModel.title);
                     FeedMdel.setPostKey(createPostMapModel.postKey);
                     FeedMdel.setAuthorID(createPostMapModel.authorID);
+
+                    if (createPostMapModel.timestamp != null){
+                        FeedMdel.setmTimeStamp(createPostMapModel.timestamp);
+                    }
+                    System.out.println(createPostMapModel.postKey);
                     postFeedModelsArray.add(FeedMdel);
                     shoutOutFeedRecyclerViewAdapter.notifyDataSetChanged();
-                    System.out.println(createPostMapModel.postKey);
                 }
                 Collections.reverse(postFeedModelsArray);
             }

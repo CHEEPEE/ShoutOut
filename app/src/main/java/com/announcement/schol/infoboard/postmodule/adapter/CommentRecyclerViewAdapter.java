@@ -34,12 +34,13 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     private Context context;
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public CircleImageView userAccountImage;
-        public TextView UserName,userComment;
+        public TextView UserName,userComment,timeStamp;
         public MyViewHolder(View view){
             super(view);
             userAccountImage = (CircleImageView) view.findViewById(R.id.user_account_image);
             UserName = (TextView) view.findViewById(R.id.user_name);
             userComment = (TextView) view.findViewById(R.id.user_comment);
+            timeStamp = (TextView) view.findViewById(R.id.comment_timestamp);
 
         }
     }
@@ -61,6 +62,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         Picasso.with(context).load(commentModel1.getUserAccountImageUrl()).into(holder.userAccountImage);
         holder.UserName.setText(commentModel1.getAuthor());
         holder.userComment.setText(commentModel1.getMsg());
+        holder.timeStamp.setText(commentModel1.getTimeStamp());
 
     }
 

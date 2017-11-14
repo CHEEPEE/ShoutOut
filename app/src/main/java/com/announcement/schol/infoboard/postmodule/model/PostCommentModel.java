@@ -13,15 +13,17 @@ public class PostCommentModel {
     public String author;
     public String message;
     public String userAccountImageUrl;
+    public String timeStamp;
 
     public PostCommentModel() {
 
     }
 
-    public PostCommentModel(String author, String msg, String userAccountUrl) {
+    public PostCommentModel(String author, String msg, String userAccountUrl,String time_date) {
         this.author= author;
         this.message = msg;
         this.userAccountImageUrl = userAccountUrl;
+        this.timeStamp  = time_date;
 
     }
     // [START post_to_map]
@@ -31,6 +33,7 @@ public class PostCommentModel {
         result.put("author",author);
         result.put("message", message);
         result.put("userAccountImageUrl",userAccountImageUrl);
+        result.put("timeStamp",timeStamp);
 
 
 

@@ -27,7 +27,7 @@ public class CreatePostMapModel {
 
     }
 
-    public CreatePostMapModel(String author, String postTitle, String postTextCotent, String postImg,String uri,String postkey,String postAuthorId) {
+    public CreatePostMapModel(String author, String postTitle, String postTextCotent, String postImg,String uri,String postkey,String postAuthorId,String timeDate) {
         this.author = author;
         this.title = postTitle;
         this.textBody = postTextCotent;
@@ -35,6 +35,7 @@ public class CreatePostMapModel {
         this.postImageUrl = uri;
         this.postKey = postkey;
         this.authorID = postAuthorId;
+        this.timestamp = timeDate;
     }
     // [START post_to_map]
     @Exclude
@@ -47,6 +48,7 @@ public class CreatePostMapModel {
         result.put("imgURL", imgURL);
         result.put("postImageUrl",postImageUrl);
         result.put("postKey",postKey);
+        result.put("timestamp",timestamp);
 
 
 

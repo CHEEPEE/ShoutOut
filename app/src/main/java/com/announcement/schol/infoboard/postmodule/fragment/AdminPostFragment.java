@@ -65,9 +65,13 @@ public class AdminPostFragment extends Fragment {
                     FeedMdel.setTitle(createPostMapModel.title);
                     FeedMdel.setPostKey(createPostMapModel.postKey);
                     FeedMdel.setAuthorID(createPostMapModel.authorID);
+                    if (createPostMapModel.timestamp != null){
+                        FeedMdel.setmTimeStamp(createPostMapModel.timestamp);
+                    }
                     postFeedModelsArray.add(FeedMdel);
                     postFeedRecyclerViewAdapter.notifyDataSetChanged();
                     System.out.println(createPostMapModel.postKey);
+
                 }
                 Collections.reverse(postFeedModelsArray);
             }

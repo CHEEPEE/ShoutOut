@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.announcement.schol.infoboard.R;
 import com.announcement.schol.infoboard.postmodule.model.CreatePostMapModel;
+import com.announcement.schol.infoboard.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -213,7 +214,7 @@ public class CreateShoutout extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     String imageUrl = taskSnapshot.getDownloadUrl().toString();
                     String key = mDatabase.push().getKey();
-                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key,getAuthorID);
+                    CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,imageUrl,key,getAuthorID, Utilities.getDateToStrig());
                     Map<String,Object> postValue = createPostMapModel.toMap();
                     Map<String,Object> childUpdates = new HashMap<>();
                     childUpdates.put(key,postValue);
@@ -248,7 +249,7 @@ public class CreateShoutout extends AppCompatActivity {
             });
         }else {
             String key = mDatabase.push().getKey();
-            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key,getAuthorID);
+            CreatePostMapModel createPostMapModel = new CreatePostMapModel(author,title,content,userImgUrl,"null",key,getAuthorID,Utilities.getDateToStrig());
             Map<String,Object> postValue = createPostMapModel.toMap();
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put(key,postValue);

@@ -58,6 +58,16 @@
                     android:layout_toRightOf="@+id/account_img"
                     android:textColor="@color/secondary_text"
                     />
+
+                <TextView
+                    android:id="@+id/time_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/post_title"
+                    android:layout_toEndOf="@+id/account_img"
+                    android:text="Sun Nov 2017 at 5:09 PM"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="8sp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
